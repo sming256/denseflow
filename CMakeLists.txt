@@ -18,7 +18,7 @@ endif()
 find_package(CUDA REQUIRED)
 find_package(OpenCV REQUIRED)
 
-set(DenseFlow_LIB zzdenseflow)
+set(DenseFlow_LIB denseflow)
 
 message(STATUS "OpenCV library status:")
 message(STATUS "    config: ${OpenCV_DIR}")
@@ -61,11 +61,11 @@ configure_file(
     "${PROJECT_BINARY_DIR}/config.h"
 )
 
-add_executable(denseflow tools/denseflow.cpp)
-target_link_libraries(denseflow ${DenseFlow_LIB})
+add_executable(denseflow_gpu tools/denseflow.cpp)
+target_link_libraries(denseflow_gpu ${DenseFlow_LIB})
 
 install (
-    TARGETS denseflow ${DenseFlow_LIB}
+    TARGETS denseflow_gpu #${DenseFlow_LIB}
     RUNTIME DESTINATION bin
     LIBRARY DESTINATION lib
 )

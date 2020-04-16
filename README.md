@@ -24,11 +24,11 @@ Extracting dense flow field given a video.
 - HDF5 (Optional)
 
 ```bash
-git clone https://github.com/innerlee/denseflow
+git clone https://github.com/sming256/denseflow
 mkdir build && cd build
-cmake -DCMAKE_INSTALL_PREFIX=$HOME/app ..
+cmake ..
 make -j
-make install
+sudo make install
 ```
 
 ### Usage
@@ -36,7 +36,7 @@ make install
 #### Extract optical flow of a single video
 
 ```bash
-denseflow test.avi -b=20 -a=tvl1 -s=1 -v
+denseflow_gpu test.avi -b=20 -a=tvl1 -s=1 -v
 ```
 
 - `test.avi`: input video / videolist.txt
@@ -53,7 +53,7 @@ denseflow test.avi -b=20 -a=tvl1 -s=1 -v
 * input image
 
 ```bash
-denseflow videolist.txt -b=20 -a=tvl1 -s=1 -v
+denseflow_gpu videolist.txt -b=20 -a=tvl1 -s=1 -v
 ```
 
 - `videolist.txt`: input video / videolist.txt

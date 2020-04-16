@@ -255,7 +255,7 @@ void DenseFlow::load_frames(bool use_frames, bool verbose) {
         if (verbose)
             cout << video_path << ", frames appro: " << frames_num << endl;
         total_frames += frames_num; // approximately
-        load_frames_video(video_stream, frames_path, use_frames, do_resize, size, output_dir, i==video_paths.size()-1, true);
+        load_frames_video(video_stream, frames_path, use_frames, do_resize, size, output_dir, i==video_paths.size()-1, verbose);
         if (!use_frames)
             video_stream.release();
         if (verbose)

@@ -17,7 +17,7 @@ int main(int argc, char **argv) {
                             "{ d deviceId     | 0    | set gpu id }"
                             "{ cf classFolder |      | outputDir/class/video/flow.jpg }"
                             "{ if inputFrames |      | inputs are frames }"
-                            "{ v verbose      |      | verbose }"};
+                            "{ v verbose      | 0    | verbose }"};
 
         CommandLineParser cmd(argc, argv, keys);
 
@@ -42,7 +42,15 @@ int main(int argc, char **argv) {
         int device_id = cmd.get<int>("deviceId");
         bool has_class = cmd.has("classFolder");
         bool use_frames = cmd.has("inputFrames");
-        bool verbose = cmd.has("verbose");
+        int verbose_flag = cmd.get<int>("verbose");
+        bool verbose;
+
+        if (verbose_flag==1) {
+            verbose = true;            
+        } else {
+            verbose = false;
+        }
+
 
         Mat::setDefaultAllocator(HostMem::getAllocator(HostMem::AllocType::PAGE_LOCKED));
 
@@ -77,6 +85,8 @@ int main(int argc, char **argv) {
             video_paths.push_back(video_path);
             output_dirs.push_back(outdir);
         }
+        // cout << verbose << endl;
+
         calcDenseFlowVideoGPU(video_paths, output_dirs, algorithm, step, bound, new_width, new_height, new_short,
                               has_class, device_id, use_frames, verbose);
 
