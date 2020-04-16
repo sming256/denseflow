@@ -17,7 +17,7 @@ Extracting dense flow field given a video.
 #### Dependencies:
 
 - OpenCV:
-[opencv3](https://www.learnopencv.com/install-opencv3-on-ubuntu/) |
+[opencv3](https://www.learnopencv.com/install-opencv3-on-ubuntu/) ([Install Guild](tools\opencv_install.md))|
 [opencv4](https://www.learnopencv.com/install-opencv-4-on-ubuntu-16-04/)
 - CUDA (driver version > 400)
 - Boost
@@ -32,36 +32,64 @@ sudo make install
 ```
 
 ### Usage
+```bash
+$ denseflow_gpu -h
+GPU optical flow extraction.
+Usage: denseflow_gpu [params] input
 
+        -a, --algorithm (value:tvl1)
+                optical flow algorithm (nv/tvl1/farn/brox)
+        -b, --bound (value:32)
+                maximum of optical flow
+        --cf, --classFolder
+                outputDir/class/video/flow.jpg
+        -d, --deviceId (value:0)  # may have bug in CUDA10
+                set gpu id
+        -h, --help (value:true)
+                print help message
+        --if, --inputFrames
+                inputs are frames
+        --newHeight, --nh (value:0)
+                new height
+        --newShort, --ns (value:0)
+                short side length
+        --newWidth, --nw (value:0)
+                new width
+        -o, --outputDir (value:.)
+                root dir of output
+        -s, --step (value:1)
+                right - left (0 for img, non-0 for flow)
+        -v, --verbose (value:0)
+                verbose
+
+        input
+                filename of video or folder of frames or a list.txt of those
+```
 #### Extract optical flow of a single video
 
 ```bash
-denseflow_gpu test.avi -b=20 -a=tvl1 -s=1 -v
+denseflow_gpu test.avi -b=20 -a=tvl1 -s=1 -v=1
 ```
 
-- `test.avi`: input video / videolist.txt
+- `test.avi`: input video
 - `tmp`: folder containing RGB images and optical flow images
-- `dir`: output generated images to folder.
 - `tvl1`: optical flow algorithm
 - `v`: verbose
 - `s`: step, extract frames only when step=0
 
-#### Extract optical flow of a list of videos
-
-* resize
-* class folder
-* input image
+#### Extract optical flow of a list of videos with single GPU
 
 ```bash
-denseflow_gpu videolist.txt -b=20 -a=tvl1 -s=1 -v
+denseflow_gpu videolist.txt  -b=20 -a=tvl1 -s=1 --nw=224 --nh=224 -v=0 --outputDir=./flow/
 ```
 
-- `videolist.txt`: input video / videolist.txt
-- `tmp`: folder containing RGB images and optical flow images
-- `dir`: output generated images to folder.
-- `tvl1`: optical flow algorithm
-- `v`: verbose
-- `s`: step, extract frames only when step=0
+- `videolist.txt`: input videolist.txt
+- `outputDir`: output generated images to folder.
+
+Better to check: resize / class folder / input image
+
+#### Extract optical flow of a list of videos with multiple GPUs
+* TODO
 
 ### Credits
 
