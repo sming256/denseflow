@@ -85,7 +85,6 @@ int main(int argc, char **argv) {
             video_paths.push_back(video_path);
             output_dirs.push_back(outdir);
         }
-        // cout << verbose << endl;
 
         calcDenseFlowVideoGPU(video_paths, output_dirs, algorithm, step, bound, new_width, new_height, new_short,
                               has_class, device_id, use_frames, verbose);
