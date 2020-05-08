@@ -6,6 +6,7 @@ from multiprocessing import Pool, current_process
 import multiprocessing as mp
 import argparse
 import time
+import numpy as np
 
 
 def dump_frames(vid_path):
@@ -36,6 +37,14 @@ def run_optical_flow(gpu_id, out_path, flow_type, new_weight, new_hight):
     os.system(
         "export CUDA_VISIBLE_DEVICES=%d;denseflow_gpu ./tmp/video_list_%02d.txt -b=20 -a=%s -s=1 --nw=%d --nh=%d -v=0 -o=%s 1>./tmp/output_%02d.txt"
         % (gpu_id, gpu_id, flow_type, new_weight, new_hight, out_path, gpu_id)
+    )
+    return True
+
+
+def run_rgb_frame(gpu_id, out_path, new_weight, new_hight):
+    os.system(
+        "export CUDA_VISIBLE_DEVICES=%d && denseflow_gpu ./tmp/video_list_%02d.txt -s=0 --nw=%d --nh=%d -v=0 -o=%s 1>./tmp/output_%02d.txt"
+        % (gpu_id % 4, gpu_id, new_weight, new_hight, out_path, gpu_id)
     )
     return True
 
@@ -133,7 +142,10 @@ if __name__ == "__main__":
     start_time = time.time()
     processes = []
     for i in range(NUM_GPU):
-        p = mp.Process(target=run_optical_flow, args=(i, out_path, flow_type, new_weight, new_hight))
+        if flow_type == "rgb":
+            p = mp.Process(target=run_rgb_frame, args=(i, out_path, new_weight, new_hight))
+        else:
+            p = mp.Process(target=run_optical_flow, args=(i, out_path, flow_type, new_weight, new_hight))
         p.start()
         processes.append(p)
 
