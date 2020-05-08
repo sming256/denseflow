@@ -3,8 +3,5 @@
 build/
 .vscode/
 out/
-imgs/
-test/
-extract*
 log/
 logs/
