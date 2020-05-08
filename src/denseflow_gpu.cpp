@@ -137,6 +137,11 @@ void DenseFlow::extract_frames_only(bool use_frames, bool verbose) {
             video_stream.release();
         if (verbose)
             cout << "extract frames done video: " << video_path << endl;
+        
+        path donedir = output_dir.parent_path() / ".done";
+        path donefile = donedir / output_dir.stem().string();
+        createFile(donefile);
+
     }
 }
 
