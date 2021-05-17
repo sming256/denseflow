@@ -18,7 +18,7 @@ Extracting dense flow field given a video.
 #### Dependencies:
 
 - OpenCV:
-[opencv3](https://www.learnopencv.com/install-opencv3-on-ubuntu/) ([Install Guide](tools\opencv_install.md))|
+[opencv3](https://www.learnopencv.com/install-opencv3-on-ubuntu/) ([Install Guide](tools/opencv_install.md))|
 [opencv4](https://www.learnopencv.com/install-opencv-4-on-ubuntu-16-04/)
 - CUDA (driver version > 400)
 - Boost
